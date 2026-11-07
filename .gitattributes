@@ -1,0 +1,10 @@
+# Normalisasi akhir baris: LF di repo, apa pun OS-nya.
+* text=auto eol=lf
+
+# Biner: jangan pernah dinormalisasi
+*.png binary
+*.jpg binary
+*.ico binary
+*.exe binary
+*.bin binary
+*.zip binary

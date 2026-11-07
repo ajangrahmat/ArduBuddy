@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Set up your board — ArduBuddy</title>
+  <meta name="description" content="Three steps: flash your ESP32 in the browser, connect it to Wi-Fi, then copy its address into the WorkBuddy connector." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="alternate icon" href="favicon.ico" sizes="any" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Set up your board — ArduBuddy" />
+  <meta property="og:description" content="Flash the ArduBuddy firmware v1.0, join Wi-Fi, and copy your ESP32 address into the WorkBuddy Desktop connector." />
+  <meta property="og:image" content="https://avisha.id/ardubuddy/assets/ardubuddy-icon-512.png" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <script src="assets/i18n.js"></script>
+</head>
+<body>
+<header class="site">
+  <div class="wrap nav">
+    <div class="brand">
+      <img class="brand-mark" src="assets/ardubuddy-icon.svg" alt="ArduBuddy logo" />
+      <span>ArduBuddy <span class="sub">/ Setup</span></span>
+    </div>
+    <nav class="navlinks">
+      <a href="index.html" data-i18n="nav.home">Home</a>
+      <a href="#step-flash" data-i18n="nav.flash">Flash</a>
+      <a href="#step-wifi" data-i18n="nav.wifi">Wi-Fi</a>
+      <a href="index.html#start" data-i18n="nav.before">Before you start</a>
+      <a href="index.html#status" data-i18n="nav.status">Status</a>
+    </nav>
+    <div class="lang-switch" role="group" aria-label="Language" data-i18n-attr="aria-label:lang.label">
+      <button class="lang-btn" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="id">ID</button>
+    </div>
+    <a class="btn btn-ghost btn-small" href="index.html" data-i18n="nav.back">Back to home</a>
+  </div>
+</header>
+
+<main>
+  <section style="padding-bottom:22px">
+    <div class="wrap">
+      <span class="badge" data-i18n="flash.badge">About 5 minutes · Chrome or Edge · HTTPS required</span>
+      <h1 style="font-size:clamp(32px,4.8vw,50px)" data-i18n="flash.h1">Let's get your board online</h1>
+      <p class="lead" style="margin-bottom:8px" data-i18n="flash.lead">
+        Keep this page open and your ESP32 plugged in with a USB data cable.
+        We will do the rest, one step at a time.
+      </p>
+      <div class="stepbar">
+        <a class="step-chip active" href="#step-flash"><b>1</b> <span data-i18n="step.1">Flash the board</span></a>
+        <a class="step-chip" href="#step-wifi"><b>2</b> <span data-i18n="step.2">Connect to Wi-Fi</span></a>
+        <a class="step-chip" href="#step-done"><b>3</b> <span data-i18n="step.3">Copy the address</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0;border-bottom:none">
+    <div class="wrap">
+
+      <div class="step-card highlight" id="step-flash">
+        <div class="step-head">
+          <span class="big-num">1</span>
+          <h3 data-i18n="flash.1.h3">Flash the board</h3>
+          <svg class="step-art" viewBox="0 0 80 80" role="img" aria-label="ESP32 board connected by USB">
+            <rect x="22" y="16" width="52" height="46" rx="9" fill="#eaf3fa" />
+            <rect x="32" y="26" width="32" height="26" rx="5" fill="#16324a" />
+            <rect x="38" y="33" width="20" height="7" rx="2.5" fill="#2c5673" />
+            <circle cx="38" cy="47" r="3" fill="#6ee0b7" />
+            <circle cx="50" cy="47" r="3" fill="#0b8f6f" />
+            <circle cx="62" cy="47" r="3" fill="#3d647d" />
+            <path d="M22 39 H8" fill="none" stroke="#0b8f6f" stroke-width="4" stroke-linecap="round" />
+            <rect x="4" y="32" width="9" height="14" rx="3" fill="#0b8f6f" />
+            <path d="M48 62 v12" fill="none" stroke="#a9c7dd" stroke-width="2.5" stroke-dasharray="3 4" />
+          </svg>
+        </div>
+        <p class="hint" data-i18n="flash.1.hint">One click installs the ArduBuddy firmware v1.0 on your ESP32. The firmware is already included on this page.</p>
+        <p class="hint" id="fwInfo">Loading firmware information…</p>
+        <button class="btn btn-primary" id="btnFlash" disabled data-i18n="flash.btnFlash">Flash my board</button>
+        <div class="progress"><div id="progressBar"></div></div>
+        <div class="progress-label" id="progressLabel" data-i18n="flash.progLabel">Not started yet</div>
+        <div class="status-row"><span class="dot" id="connDot"></span><span id="connLabel" data-i18n="flash.connLabel">Board not connected</span></div>
+        <div class="note" style="margin-top:22px">
+          <span data-i18n-html="flash.1.note">When it finishes: press the <b>RESET (EN)</b> button on the board, wait two seconds, then go to step 2. Don't unplug the cable.</span>
+        </div>
+
+        <details class="advanced" style="margin-top:22px">
+          <summary data-i18n="flash.adv1.summary">Advanced: use my own firmware file or see the log</summary>
+          <div class="body">
+            <div class="panel" style="margin-bottom:16px">
+              <div class="field">
+                <label for="fwSource" data-i18n="flash.adv1.fwSourceLabel">Firmware source</label>
+                <select id="fwSource">
+                  <option value="bundled" data-i18n="flash.adv1.optBundled">Included firmware — ArduBuddy v1.0 (recommended)</option>
+                  <option value="local" data-i18n="flash.adv1.optLocal">A .bin file from my computer</option>
+                </select>
+              </div>
+              <div class="field" id="fileField" style="display:none">
+                <label for="fileInput" data-i18n="flash.adv1.fileLabel">Choose a merged .bin image</label>
+                <input type="file" id="fileInput" accept=".bin,application/octet-stream" />
+              </div>
+              <div class="field">
+                <label for="offsetInput" data-i18n="flash.adv1.offsetLabel">Flash offset</label>
+                <input type="number" id="offsetInput" value="0" min="0" step="4096" />
+              </div>
+              <div style="display:flex;gap:10px;flex-wrap:wrap">
+                <button class="btn btn-ghost btn-small" id="btnConnect" data-i18n="flash.adv1.btnConnect">Connect serial only</button>
+                <button class="btn btn-ghost btn-small" id="btnDisconnect" disabled data-i18n="flash.adv1.btnDisconnect">Disconnect</button>
+              </div>
+            </div>
+            <div class="console" id="console"></div>
+          </div>
+        </details>
+      </div>
+
+      <div class="step-card" id="step-wifi">
+        <div class="step-head">
+          <span class="big-num">2</span>
+          <h3 data-i18n="flash.2.h3">Connect to Wi-Fi</h3>
+          <svg class="step-art" viewBox="0 0 80 80" role="img" aria-label="Wi-Fi signal reaching the board">
+            <circle cx="40" cy="40" r="31" fill="#e2f6ef" />
+            <path d="M18 32 q22 -22 44 0" fill="none" stroke="#0b8f6f" stroke-width="3.4" stroke-linecap="round" />
+            <path d="M26 42 q14 -14 28 0" fill="none" stroke="#0b8f6f" stroke-width="3.4" stroke-linecap="round" />
+            <circle cx="40" cy="50" r="4" fill="#0b8f6f" />
+            <rect x="26" y="57" width="28" height="9" rx="4" fill="#16324a" />
+            <circle cx="33" cy="61.5" r="2" fill="#6ee0b7" />
+            <circle cx="41" cy="61.5" r="2" fill="#6ee0b7" />
+            <circle cx="49" cy="61.5" r="2" fill="#3d647d" />
+          </svg>
+        </div>
+        <p class="hint" data-i18n="flash.2.hint">
+          Type your Wi-Fi name and password. They go straight to the board through the USB cable — this page never uploads or saves them.
+        </p>
+        <div class="grid-2" style="gap:16px">
+          <div class="field" style="margin-bottom:0">
+            <label for="wifiSsid" data-i18n="flash.2.ssidLabel">Wi-Fi name (SSID)</label>
+            <input type="text" id="wifiSsid" placeholder="e.g. Office-WiFi" autocomplete="off" spellcheck="false" data-i18n-attr="placeholder:flash.2.ssidPh" />
+          </div>
+          <div class="field" style="margin-bottom:0">
+            <label for="wifiPass" data-i18n="flash.2.passLabel">Wi-Fi password</label>
+            <input type="password" id="wifiPass" placeholder="Your password" autocomplete="off" data-i18n-attr="placeholder:flash.2.passPh" />
+          </div>
+        </div>
+        <div style="margin-top:22px;display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+          <button class="btn btn-primary" id="wifiGoBtn" data-i18n="flash.2.btnGo">Connect my ESP32</button>
+          <button class="btn btn-ghost btn-small" id="wifiDisconnectBtn" disabled data-i18n="flash.2.btnDisconnect">Disconnect USB</button>
+        </div>
+        <div class="status-row"><span class="dot" id="wifiDot"></span><span id="wifiConnLabel" data-i18n="flash.connLabel">Not connected yet</span></div>
+        <p class="hint" id="wifiStatusText" style="margin:12px 0 0" data-i18n="flash.2.statusText">We will connect the USB serial port, send your Wi-Fi details, then switch on device control.</p>
+        <div class="note" style="margin-top:20px">
+          <span data-i18n="flash.2.note">Use 2.4 GHz Wi-Fi. ESP32 cannot join 5 GHz. If nothing happens, press RESET on the board and try again. A USB driver for CP210x or CH340 may be needed.</span>
+        </div>
+
+        <details class="advanced" style="margin-top:22px">
+          <summary data-i18n="flash.adv2.summary">Advanced: fix connection problems and see the log</summary>
+          <div class="body">
+            <div class="panel" style="margin-bottom:16px">
+              <div style="display:flex;gap:10px;flex-wrap:wrap">
+                <button class="btn btn-ghost btn-small" id="wifiStatusBtn" disabled data-i18n="flash.adv2.btnStatus">Check status</button>
+                <button class="btn btn-ghost btn-small" id="wifiRestartBtn" disabled data-i18n="flash.adv2.btnRestart">Restart board</button>
+                <button class="btn btn-ghost btn-small" id="wifiResetBtn" disabled data-i18n="flash.adv2.btnForget">Forget Wi-Fi</button>
+              </div>
+            </div>
+            <div class="console" id="wifiConsole"></div>
+          </div>
+        </details>
+
+        <details class="advanced">
+          <summary data-i18n="flash.adv3.summary">Advanced: the commands we send (no AI key involved)</summary>
+          <div class="body">
+            <table>
+              <thead><tr><th data-i18n="flash.adv3.tr1">Save Wi-Fi</th><th>{"c":"ws","s":"Office-WiFi","p":"password"}</th></tr></thead>
+              <tbody>
+                <tr><td data-i18n="flash.adv3.tr2">Check status</td><td><code>{"c":"wst"}</code></td></tr>
+                <tr><td data-i18n="flash.adv3.tr3">Switch on the local API</td><td><code>{"c":"start"}</code></td></tr>
+                <tr><td data-i18n="flash.adv3.tr4">Forget Wi-Fi</td><td><code>{"c":"wr"}</code></td></tr>
+                <tr><td data-i18n="flash.adv3.tr5">Restart</td><td><code>{"c":"rst"}</code></td></tr>
+              </tbody>
+            </table>
+            <p class="hint" style="margin:14px 0 0" data-i18n-html="flash.adv3.p">
+              The ArduBuddy firmware v1.0 receives JSON commands over USB serial and HTTP.
+              No AI model or API key runs on the board. You still need a WorkBuddy account.
+            </p>
+          </div>
+        </details>
+      </div>
+
+      <div class="step-card" id="step-done">
+        <div class="step-head">
+          <span class="big-num">3</span>
+          <h3 data-i18n="flash.3.h3">Copy the address</h3>
+          <svg class="step-art" viewBox="0 0 80 80" role="img" aria-label="Address card with a link">
+            <circle cx="40" cy="40" r="31" fill="#eaf3fa" />
+            <rect x="16" y="24" width="48" height="32" rx="8" fill="#ffffff" stroke="#d6e3ee" stroke-width="2" />
+            <rect x="24" y="32" width="24" height="5" rx="2.5" fill="#0b8f6f" />
+            <rect x="24" y="42" width="32" height="5" rx="2.5" fill="#a9c7dd" />
+            <circle cx="56" cy="54" r="10" fill="#0b8f6f" />
+            <path d="M52 54 h8 M56 50 v8" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" />
+          </svg>
+        </div>
+        <p class="hint" data-i18n="cfg.hint">Name the 4 relay channels and choose their GPIO pins. Settings are saved to the board over the USB cable.</p>
+
+        <div class="ipbox" id="ipBox" style="display:none">
+          <div class="label" data-i18n="flash.3.ipLabel">Your board's address</div>
+          <div class="address">http://<span id="ipText">-</span></div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button class="btn btn-primary btn-small" id="copyIpBtn" data-i18n="flash.3.copyBtn">Copy address</button>
+            <a class="btn btn-ghost btn-small" id="ipLink" href="#" target="_blank" rel="noopener" data-i18n="flash.3.openBtn">API status</a>
+          </div>
+        </div>
+        <p class="hint" id="ipPlaceholder" data-i18n="flash.3.placeholder">Finish step 2 and the address will appear here.</p>
+
+        <div class="relay-head">
+          <span></span><span data-i18n="cfg.name">Name</span><span data-i18n="cfg.pin">GPIO</span><span></span><span></span>
+        </div>
+        <div class="relay-grid">
+          <div class="relay-row">
+            <span class="relay-num">1</span>
+            <input type="text" id="relay0Name" value="meeting_light" spellcheck="false" />
+            <input type="number" id="relay0Pin" value="5" min="0" max="39" step="1" />
+            <button class="btn btn-ghost btn-small" data-test="0" data-value="1">ON</button>
+            <button class="btn btn-ghost btn-small" data-test="0" data-value="0">OFF</button>
+          </div>
+          <div class="relay-row">
+            <span class="relay-num">2</span>
+            <input type="text" id="relay1Name" value="projector_indicator" spellcheck="false" />
+            <input type="number" id="relay1Pin" value="16" min="0" max="39" step="1" />
+            <button class="btn btn-ghost btn-small" data-test="1" data-value="1">ON</button>
+            <button class="btn btn-ghost btn-small" data-test="1" data-value="0">OFF</button>
+          </div>
+          <div class="relay-row">
+            <span class="relay-num">3</span>
+            <input type="text" id="relay2Name" value="room_fan" spellcheck="false" />
+            <input type="number" id="relay2Pin" value="17" min="0" max="39" step="1" />
+            <button class="btn btn-ghost btn-small" data-test="2" data-value="1">ON</button>
+            <button class="btn btn-ghost btn-small" data-test="2" data-value="0">OFF</button>
+          </div>
+          <div class="relay-row">
+            <span class="relay-num">4</span>
+            <input type="text" id="relay3Name" value="desk_lamp" spellcheck="false" />
+            <input type="number" id="relay3Pin" value="4" min="0" max="39" step="1" />
+            <button class="btn btn-ghost btn-small" data-test="3" data-value="1">ON</button>
+            <button class="btn btn-ghost btn-small" data-test="3" data-value="0">OFF</button>
+          </div>
+        </div>
+
+        <label class="check-row">
+          <input type="checkbox" id="activeLow" />
+          <span data-i18n="cfg.activeLow">Active-low relay (on when GPIO is LOW)</span>
+        </label>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px">
+          <button class="btn btn-primary btn-small" id="saveConfigBtn" data-i18n="cfg.save">Save to board</button>
+          <button class="btn btn-ghost btn-small" id="allOffBtn" data-i18n="cfg.allOff">All OFF</button>
+        </div>
+        <p class="hint" id="configStatus" style="margin:12px 0 0"></p>
+
+        <h3 style="margin-top:30px" data-i18n="prompt.h3">WorkBuddy prompt</h3>
+        <p class="hint" data-i18n="prompt.hint">Copy this prompt into WorkBuddy. It contains the board address, relay map, API examples, and safety rules.</p>
+        <textarea id="promptBox" class="prompt-box" readonly></textarea>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
+          <button class="btn btn-primary btn-small" id="copyPromptBtn" data-i18n="prompt.copy">Copy prompt</button>
+        </div>
+        <p class="hint" id="promptWarn" style="display:none;color:#b45309;font-weight:700" data-i18n="prompt.needIp">Finish step 2 first so the board address appears.</p>
+
+        <div class="note" style="margin-top:22px">
+          <span data-i18n-html="flash.3.note">After a restart: firmware v1.0 starts its local API automatically once Wi-Fi is connected.
+          Wait a few seconds and the address appears again — no extra command needed.</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div data-i18n="flash.footer.copy">ArduBuddy · uses esptool-js (MIT) for browser flashing</div>
+    <div class="links">
+      <a href="index.html" data-i18n="nav.home">Home</a>
+      <a href="firmware/manifest.json" data-i18n="flash.footer.manifest">Firmware manifest</a>
+      <a href="firmware/source/README.md" target="_blank" rel="noopener" data-i18n="flash.footer.docs">Firmware docs</a>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="assets/flasher.js"></script>
+<script type="module" src="assets/wifi.js"></script>
+</body>
+</html>

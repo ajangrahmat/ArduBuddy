@@ -1,0 +1,21 @@
+.env
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+.DS_Store
+.vscode/
+.idea/
+*.log
+demo/*.mp4
+demo/*.mov
+dist/
+build/
+*.egg-info/
+# Build artifacts PlatformIO (jangan ikut di-push)
+.pio/
+# Catatan kerja lokal WorkBuddy (berisi catatan pribadi)
+.workbuddy-ai/
+# website/downloads/*.exe sengaja TIDAK diabaikan: itu berkas unduhan pengguna.

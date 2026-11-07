@@ -1,0 +1,11 @@
+Demo video URL:
+[isi setelah video diunggah]
+
+Repository URL:
+[isi setelah repository dibuat]
+
+Website URL (rencana):
+https://avisha.id/ardubuddy/
+
+Flasher URL (rencana):
+https://avisha.id/ardubuddy/flash.html

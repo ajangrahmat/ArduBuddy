@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ArduBuddy — Talk to your office, watch it happen</title>
+  <meta name="description" content="Connect Tencent WorkBuddy, an AI agent for everyday office work, to a real ESP32 board. Flash it in your browser, join it to Wi-Fi, then control lights with a plain sentence." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="alternate icon" href="favicon.ico" sizes="any" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="ArduBuddy — Office Agent" />
+  <meta property="og:description" content="WorkBuddy Desktop meets the physical office: one sentence, one checked MCP command, real ESP32 devices." />
+  <meta property="og:image" content="https://avisha.id/ardubuddy/assets/ardubuddy-icon-512.png" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <script src="assets/i18n.js"></script>
+</head>
+<body>
+<header class="site">
+  <div class="wrap nav">
+    <div class="brand">
+      <img class="brand-mark" src="assets/ardubuddy-icon.svg" alt="ArduBuddy logo" />
+      <span>ArduBuddy <span class="sub">/ Office Agent</span></span>
+    </div>
+    <nav class="navlinks">
+      <a href="#how" data-i18n="nav.how">How it works</a>
+      <a href="#why" data-i18n="nav.why">Why we built it</a>
+      <a href="#workbuddy" data-i18n="nav.workbuddy">WorkBuddy</a>
+      <a href="flash.html" data-i18n="nav.setup">Get started</a>
+      <a href="#needs" data-i18n="nav.needs">What you need</a>
+      <a href="#status" data-i18n="nav.status">Status</a>
+    </nav>
+    <div class="lang-switch" role="group" aria-label="Language" data-i18n-attr="aria-label:lang.label">
+      <button class="lang-btn" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="id">ID</button>
+    </div>
+    <a class="btn btn-ghost btn-small" href="flash.html" data-i18n="header.openSetup">Open setup</a>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <span class="badge" data-i18n="hero.badge">Tencent Cloud AI CAN DO IT Hackathon 2026 · Challenge B</span>
+          <h1 data-i18n-html="hero.h1">Type a sentence. <span class="hl">Real things happen.</span></h1>
+          <p class="lead" data-i18n="hero.lead">
+            Ask WorkBuddy to set up the room. A small ESP32 board switches real lights and reads real sensors. No app, no code, no AI key on the board.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="flash.html" data-i18n="hero.btn_setup">Set up my board</a>
+            <a class="btn btn-ghost" href="flash.html#step-done" data-i18n="hero.btn_download">Get the prompt</a>
+          </div>
+          <p class="hero-meta" data-i18n-html="hero.meta">About 5 minutes · You need an ESP32, a USB cable, Chrome or Edge, and <a href="https://workbuddy.ai/invite?code=PHSPUBC8" target="_blank" rel="noopener">WorkBuddy Desktop</a>.</p>
+        </div>
+
+        <svg class="hero-art" viewBox="0 0 460 340" role="img" aria-label="A chat message travels from WorkBuddy to an ESP32 board and turns on LEDs">
+          <defs>
+            <marker id="heroArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M2 1L8 5L2 9" fill="none" stroke="#0b8f6f" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+            </marker>
+          </defs>
+          <rect x="0" y="0" width="460" height="340" rx="26" fill="#eaf3fa" />
+          <circle cx="392" cy="54" r="86" fill="#d9efe7" />
+          <circle cx="52" cy="292" r="58" fill="#d9e8f5" />
+
+          <rect x="22" y="28" width="226" height="140" rx="18" fill="#ffffff" stroke="#d6e3ee" stroke-width="2" />
+          <circle cx="44" cy="50" r="5" fill="#0b8f6f" />
+          <circle cx="60" cy="50" r="5" fill="#a9c7dd" />
+          <circle cx="76" cy="50" r="5" fill="#d6e3ee" />
+          <rect x="42" y="72" width="150" height="11" rx="5.5" fill="#e6eef5" />
+          <rect x="42" y="92" width="108" height="11" rx="5.5" fill="#e6eef5" />
+          <rect x="42" y="118" width="184" height="32" rx="11" fill="#e2f6ef" />
+          <text x="55" y="139" font-family="Plus Jakarta Sans, sans-serif" font-size="12.5" font-weight="700" fill="#087456">Set up the meeting room</text>
+
+          <path d="M248 150 C 300 150 290 200 314 214" fill="none" stroke="#0b8f6f" stroke-width="2.5" stroke-dasharray="7 8" marker-end="url(#heroArrow)" />
+
+          <path d="M326 176 q22 -22 44 0" fill="none" stroke="#0b8f6f" stroke-width="3" stroke-linecap="round" />
+          <path d="M335 187 q13 -13 26 0" fill="none" stroke="#0b8f6f" stroke-width="3" stroke-linecap="round" />
+          <circle cx="348" cy="195" r="3.6" fill="#0b8f6f" />
+
+          <rect x="226" y="206" width="212" height="112" rx="16" fill="#16324a" />
+          <rect x="244" y="224" width="72" height="40" rx="7" fill="#2c5673" />
+          <rect x="324" y="224" width="40" height="40" rx="6" fill="#2c5673" />
+          <text x="420" y="246" text-anchor="end" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" fill="#9fc0d4">ESP32</text>
+          <circle cx="260" cy="284" r="10" fill="#0b8f6f" />
+          <circle cx="292" cy="284" r="10" fill="#6ee0b7" />
+          <circle cx="324" cy="284" r="10" fill="#6ee0b7" />
+          <circle cx="356" cy="284" r="10" fill="#3d647d" />
+          <g fill="#9fc0d4">
+            <rect x="242" y="312" width="8" height="10" rx="2" />
+            <rect x="262" y="312" width="8" height="10" rx="2" />
+            <rect x="282" y="312" width="8" height="10" rx="2" />
+            <rect x="302" y="312" width="8" height="10" rx="2" />
+            <rect x="322" y="312" width="8" height="10" rx="2" />
+            <rect x="342" y="312" width="8" height="10" rx="2" />
+            <rect x="362" y="312" width="8" height="10" rx="2" />
+            <rect x="382" y="312" width="8" height="10" rx="2" />
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <section id="why">
+    <div class="wrap">
+      <span class="badge" data-i18n="why.badge">The idea in one glance</span>
+      <h2 data-i18n="why.h2">What does ArduBuddy add?</h2>
+      <p class="section-lead" data-i18n="why.lead">WorkBuddy on its own, and WorkBuddy with ArduBuddy.</p>
+
+      <div class="compare">
+        <div class="compare-card">
+          <div class="compare-head">
+            <svg class="compare-icon" viewBox="0 0 56 56" role="img" aria-label="WorkBuddy window with documents">
+              <rect x="2" y="6" width="52" height="40" rx="8" fill="#eaf3fa" />
+              <rect x="2" y="6" width="52" height="10" rx="5" fill="#dbe9f5" />
+              <circle cx="10" cy="11" r="2" fill="#0b8f6f" />
+              <rect x="9" y="21" width="16" height="19" rx="3" fill="#ffffff" />
+              <rect x="30" y="21" width="16" height="19" rx="3" fill="#e2f6ef" />
+              <rect x="12" y="25" width="10" height="3" rx="1.5" fill="#0b8f6f" />
+              <rect x="33" y="25" width="10" height="3" rx="1.5" fill="#0b8f6f" />
+              <rect x="16" y="46" width="24" height="4" rx="2" fill="#16324a" />
+            </svg>
+            <h3 data-i18n="compare.wb.title">WorkBuddy</h3>
+          </div>
+          <p class="compare-lead" data-i18n="compare.wb.lead">Digital office work.</p>
+          <ul class="plain">
+            <li data-i18n="compare.wb.li1">Reports, slides and documents</li>
+            <li data-i18n="compare.wb.li2">Spreadsheets and data</li>
+            <li data-i18n="compare.wb.li3">Local files</li>
+          </ul>
+          <span class="tag tag-plain" data-i18n="compare.wb.tag">Documents done. Room unchanged.</span>
+        </div>
+
+        <div class="compare-arrow">→</div>
+
+        <div class="compare-card hot">
+          <div class="compare-head">
+            <svg class="compare-icon" viewBox="0 0 56 56" role="img" aria-label="ESP32 board with LEDs">
+              <rect x="2" y="8" width="52" height="40" rx="8" fill="#16324a" />
+              <rect x="9" y="15" width="20" height="14" rx="3" fill="#2c5673" />
+              <rect x="34" y="15" width="12" height="14" rx="3" fill="#2c5673" />
+              <circle cx="12" cy="38" r="4" fill="#0b8f6f" />
+              <circle cx="24" cy="38" r="4" fill="#6ee0b7" />
+              <circle cx="36" cy="38" r="4" fill="#6ee0b7" />
+              <circle cx="48" cy="38" r="4" fill="#3d647d" />
+            </svg>
+            <h3 data-i18n="compare.add.title">WorkBuddy + ArduBuddy</h3>
+          </div>
+          <p class="compare-lead" data-i18n-html="compare.add.lead">Digital work <b>plus the room itself.</b></p>
+          <ul class="plain">
+            <li data-i18n="compare.add.li1">Everything WorkBuddy already does</li>
+            <li data-i18n="compare.add.li2">Lights, indicators and sensors</li>
+            <li data-i18n="compare.add.li3">Same sentence, no second app</li>
+          </ul>
+          <span class="tag tag-ok" data-i18n="compare.add.tag">One assistant. Documents and devices.</span>
+        </div>
+      </div>
+
+      <div class="note" style="margin-top:22px">
+        <strong data-i18n="why.note">Hardware:</strong> <span data-i18n="why.note2">the demo uses an ESP32 with a 4-channel relay shield to switch up to four AC lamps. Mains wiring is dangerous — follow the safety notes below.</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="workbuddy">
+    <div class="wrap">
+      <span class="badge" data-i18n="wb.badge">The AI behind this project</span>
+      <h2 data-i18n="wb.h2">Meet WorkBuddy</h2>
+      <p class="section-lead" data-i18n-html="wb.lead">
+        WorkBuddy is <b>Tencent's AI agent for everyday office work</b> — a desktop workspace, not just a chat window. One sentence, and it plans and does the task for you.
+      </p>
+      <div class="wb-grid">
+        <div class="wb-copy">
+          <div class="callout">
+            <h3 data-i18n="wb.callout.h3">What this project adds</h3>
+            <p data-i18n="wb.callout.p">WorkBuddy normally stops at digital work. Our connector adds the physical side: meeting-room lights, indicators and sensors join the same conversation. No second app, no dashboard.</p>
+          </div>
+          <div class="note" style="margin:18px 0 0">
+            <strong data-i18n="wb.note-strong">Good to know:</strong> <span data-i18n-html="wb.note">WorkBuddy is a <b>desktop app you install</b> — the web version cannot run custom MCP connectors. See the <a href="#start">3-step setup below</a> for the account, installer, and +350 free credits. No separate AI API key needed.</span>
+          </div>
+          <div class="wb-links">
+            <a class="btn btn-primary btn-small" href="https://workbuddy.ai/invite?code=PHSPUBC8" target="_blank" rel="noopener" data-i18n="wb.btn_account">Create your WorkBuddy account</a>
+            <a class="btn btn-ghost btn-small" href="https://www.workbuddy.ai/" target="_blank" rel="noopener" data-i18n="wb.btn_site">Official site</a>
+            <a class="btn btn-ghost btn-small" href="https://www.workbuddy.ai/docs/workbuddy/Overview" target="_blank" rel="noopener" data-i18n="wb.btn_docs">Read the docs</a>
+          </div>
+        </div>
+
+        <svg class="wb-art" viewBox="0 0 460 320" role="img" aria-label="WorkBuddy desktop workspace turning one sentence into a plan">
+          <rect x="0" y="0" width="460" height="320" rx="24" fill="#eaf3fa" />
+          <circle cx="412" cy="38" r="70" fill="#d9efe7" />
+          <rect x="22" y="24" width="416" height="272" rx="16" fill="#ffffff" stroke="#d6e3ee" stroke-width="2" />
+          <path d="M38 24 h384 a16 16 0 0 1 16 16 v12 H22 V40 a16 16 0 0 1 16 -16 z" fill="#f0f6fb" />
+          <circle cx="44" cy="42" r="5" fill="#0b8f6f" />
+          <circle cx="60" cy="42" r="5" fill="#a9c7dd" />
+          <circle cx="76" cy="42" r="5" fill="#d6e3ee" />
+          <rect x="22" y="60" width="92" height="236" fill="#f6fafd" />
+          <rect x="36" y="82" width="54" height="9" rx="4.5" fill="#0b8f6f" />
+          <rect x="36" y="104" width="44" height="8" rx="4" fill="#dbe5ef" />
+          <rect x="36" y="124" width="52" height="8" rx="4" fill="#dbe5ef" />
+          <rect x="36" y="144" width="38" height="8" rx="4" fill="#dbe5ef" />
+          <rect x="36" y="164" width="50" height="8" rx="4" fill="#dbe5ef" />
+
+          <rect x="132" y="80" width="282" height="44" rx="12" fill="#e2f6ef" />
+          <text x="148" y="108" font-family="Plus Jakarta Sans, sans-serif" font-size="14" font-weight="700" fill="#087456">Set up the meeting room</text>
+
+          <rect x="132" y="138" width="282" height="140" rx="12" fill="#f8fbfe" stroke="#dbe5ef" stroke-width="2" />
+          <text x="148" y="162" font-family="Plus Jakarta Sans, sans-serif" font-size="10.5" font-weight="800" fill="#7d93a6">WORKBUDDY PLAN</text>
+          <circle cx="156" cy="186" r="9" fill="#0b8f6f" />
+          <path d="M152 186 l3 3 6 -6" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          <rect x="174" y="181" width="150" height="9" rx="4.5" fill="#cfe0ec" />
+          <circle cx="156" cy="218" r="9" fill="#0b8f6f" />
+          <path d="M152 218 l3 3 6 -6" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          <rect x="174" y="213" width="122" height="9" rx="4.5" fill="#cfe0ec" />
+          <circle cx="156" cy="250" r="9" fill="#0b8f6f" />
+          <path d="M152 250 l3 3 6 -6" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          <rect x="174" y="245" width="164" height="9" rx="4.5" fill="#cfe0ec" />
+
+          <rect x="286" y="286" width="128" height="24" rx="12" fill="#0b8f6f" />
+          <text x="350" y="302" text-anchor="middle" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" fill="#ffffff">Result ready</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section id="start">
+    <div class="wrap">
+      <span class="badge" data-i18n="start.badge">Before you start</span>
+      <h2 data-i18n="start.h2">Three quick things on your computer</h2>
+      <p class="section-lead" data-i18n-html="start.lead">
+        WorkBuddy is a <b>desktop app</b>. The browser version cannot run MCP connectors, so the desktop client is required.
+      </p>
+      <div class="grid-3">
+        <div class="card">
+          <div class="num" style="margin-bottom:16px">1</div>
+          <h3 data-i18n="start.1.title">Create an account</h3>
+          <p data-i18n-html="start.1.p">Sign up with this <a href="https://workbuddy.ai/invite?code=PHSPUBC8" target="_blank" rel="noopener">invitation link</a> and get <b>+350 free credits</b>. A free model is also available.</p>
+        </div>
+        <div class="card">
+          <div class="num" style="margin-bottom:16px">2</div>
+          <h3 data-i18n="start.2.title">Install WorkBuddy Desktop</h3>
+          <p data-i18n-html="start.2.p">Download the installer from the <a href="https://www.workbuddy.ai/" target="_blank" rel="noopener">official site</a> (Windows x64 / macOS .dmg). Run it. <b>The web version will not work.</b></p>
+        </div>
+        <div class="card">
+          <div class="num" style="margin-bottom:16px">3</div>
+          <h3 data-i18n="start.3.title">Sign in</h3>
+          <p data-i18n-html="start.3.p">Open the desktop app, click <b>Log in</b>, and use your new account. The browser only opens login, then sends you back to the app.</p>
+        </div>
+      </div>
+      <div class="callout" style="margin-top:24px">
+        <h3 data-i18n="start.callout.h3">The whole setup in one line</h3>
+        <p class="formula" data-i18n="start.formula">WorkBuddy Desktop → MCP → ESP32</p>
+        <p data-i18n="start.callout.p">No AI model or API key runs on the board. WorkBuddy thinks; ArduBuddy sends one checked command to the ESP32, and the board replies with what happened.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="wrap">
+      <h2 data-i18n="how.h2">Three steps. That's it.</h2>
+      <p class="section-lead" data-i18n="how.lead">Everything starts in your browser. The connector is just one small file.</p>
+      <div class="grid-3">
+        <div class="card">
+          <div class="card-top">
+            <div class="num">1</div>
+            <svg class="card-art" viewBox="0 0 80 80" role="img" aria-label="Board being flashed over USB">
+              <rect x="6" y="24" width="68" height="42" rx="10" fill="#eaf3fa" />
+              <rect x="18" y="32" width="44" height="26" rx="6" fill="#16324a" />
+              <rect x="26" y="40" width="28" height="8" rx="3" fill="#2c5673" />
+              <circle cx="28" cy="54" r="3" fill="#6ee0b7" />
+              <circle cx="40" cy="54" r="3" fill="#6ee0b7" />
+              <circle cx="52" cy="54" r="3" fill="#3d647d" />
+              <path d="M40 6 v12" fill="none" stroke="#0b8f6f" stroke-width="3.4" stroke-linecap="round" />
+              <path d="M33 13 l7 9 7 -9" fill="none" stroke="#0b8f6f" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+          <h3 data-i18n="how.1.title">Flash the board</h3>
+          <p data-i18n-html="how.1.p">Plug the ESP32 into your computer. Open the <a href="flash.html">setup page</a> and click one button.</p>
+        </div>
+        <div class="card">
+          <div class="card-top">
+            <div class="num">2</div>
+            <svg class="card-art" viewBox="0 0 80 80" role="img" aria-label="Board joining a Wi-Fi network">
+              <circle cx="40" cy="40" r="31" fill="#e2f6ef" />
+              <path d="M20 34 q20 -20 40 0" fill="none" stroke="#0b8f6f" stroke-width="3.4" stroke-linecap="round" />
+              <path d="M27 43 q13 -13 26 0" fill="none" stroke="#0b8f6f" stroke-width="3.4" stroke-linecap="round" />
+              <circle cx="40" cy="51" r="4" fill="#0b8f6f" />
+              <rect x="30" y="58" width="20" height="7" rx="3.5" fill="#16324a" />
+            </svg>
+          </div>
+          <h3 data-i18n="how.2.title">Join your Wi-Fi</h3>
+          <p data-i18n="how.2.p">Type your Wi-Fi name and password on the same page. We show the board's address when ready.</p>
+        </div>
+        <div class="card">
+          <div class="card-top">
+            <div class="num">3</div>
+            <svg class="card-art" viewBox="0 0 80 80" role="img" aria-label="Chat message for WorkBuddy">
+              <circle cx="40" cy="40" r="31" fill="#eaf3fa" />
+              <rect x="17" y="23" width="46" height="31" rx="11" fill="#ffffff" stroke="#d6e3ee" stroke-width="2" />
+              <path d="M29 54 l0 9 11 -9" fill="#ffffff" stroke="#d6e3ee" stroke-width="2" stroke-linejoin="round" />
+              <rect x="26" y="33" width="28" height="5" rx="2.5" fill="#0b8f6f" />
+              <rect x="26" y="43" width="18" height="5" rx="2.5" fill="#a9c7dd" />
+            </svg>
+          </div>
+          <h3 data-i18n="how.3.title">Talk to WorkBuddy Desktop</h3>
+          <p data-i18n-html="how.3.p">Run <code>ArduBuddy.exe</code>, paste the address, then say <code>"Set up the meeting room."</code> in the desktop app.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2 data-i18n="who.h2">Who does what</h2>
+      <p class="section-lead" data-i18n="who.lead">The thinking happens in WorkBuddy. The board only follows safe, checked commands.</p>
+
+      <svg class="scene-art" viewBox="0 0 960 210" role="img" aria-label="A meeting room where the lights turn on after a spoken request">
+        <rect x="0" y="0" width="960" height="210" rx="20" fill="#eaf3fa" />
+        <rect x="0" y="0" width="960" height="14" rx="7" fill="#d6e3ee" />
+        <rect x="40" y="34" width="238" height="58" rx="16" fill="#ffffff" stroke="#d6e3ee" stroke-width="2" />
+        <text x="60" y="69" font-family="Plus Jakarta Sans, sans-serif" font-size="16" font-weight="700" fill="#087456">"Set up the meeting room"</text>
+
+        <g stroke="#a9c7dd" stroke-width="3">
+          <path d="M410 14 v34" /><path d="M600 14 v34" /><path d="M790 14 v34" />
+        </g>
+        <g>
+          <circle cx="410" cy="56" r="24" fill="#d9efe7" />
+          <circle cx="600" cy="56" r="24" fill="#d9efe7" />
+          <circle cx="790" cy="56" r="24" fill="#e2eaf1" />
+          <path d="M394 48 h32 l-6 14 h-20 z" fill="#0b8f6f" />
+          <path d="M584 48 h32 l-6 14 h-20 z" fill="#0b8f6f" />
+          <path d="M774 48 h32 l-6 14 h-20 z" fill="#9fb6c8" />
+        </g>
+        <g fill="#ffffff" opacity=".85">
+          <path d="M410 74 l-30 62 h60 z" />
+          <path d="M600 74 l-30 62 h60 z" />
+        </g>
+
+        <rect x="330" y="150" width="300" height="16" rx="8" fill="#16324a" />
+        <rect x="352" y="166" width="14" height="34" rx="4" fill="#2c5673" />
+        <rect x="594" y="166" width="14" height="34" rx="4" fill="#2c5673" />
+        <rect x="430" y="132" width="100" height="18" rx="6" fill="#ffffff" stroke="#d6e3ee" stroke-width="2" />
+
+        <rect x="700" y="128" width="214" height="64" rx="14" fill="#16324a" />
+        <rect x="716" y="144" width="64" height="32" rx="6" fill="#2c5673" />
+        <circle cx="806" cy="160" r="9" fill="#0b8f6f" />
+        <circle cx="834" cy="160" r="9" fill="#6ee0b7" />
+        <circle cx="862" cy="160" r="9" fill="#3d647d" />
+        <text x="898" y="164" text-anchor="end" font-family="Plus Jakarta Sans, sans-serif" font-size="11" font-weight="700" fill="#9fc0d4">ESP32</text>
+      </svg>
+
+      <div class="pipeline">
+        <div class="pipe-node"><b data-i18n="who.you">You</b><span data-i18n="who.you.s">Type a sentence</span></div>
+        <div class="pipe-arrow">→</div>
+        <div class="pipe-node hot"><b data-i18n="who.wb">WorkBuddy</b><span data-i18n="who.wb.s">Understands it</span></div>
+        <div class="pipe-arrow">→</div>
+        <div class="pipe-node"><b data-i18n="who.conn">Connector</b><span data-i18n="who.conn.s">Checks the command</span></div>
+        <div class="pipe-arrow">→</div>
+        <div class="pipe-node hot"><b data-i18n="who.esp">ESP32</b><span data-i18n="who.esp.s">Switches the pin</span></div>
+        <div class="pipe-arrow">→</div>
+        <div class="pipe-node"><b data-i18n="who.lights">Lights</b><span data-i18n="who.lights.s">Turn on for real</span></div>
+      </div>
+      <div class="callout" style="margin-top:28px">
+        <h3 data-i18n="who.callout.h3">No AI runs on the board</h3>
+        <p data-i18n="who.callout.p">A WorkBuddy account is required, but you need no separate AI API key, model, or subscription. WorkBuddy reasons; the connector sends one allowlisted command to the ESP32. That's the whole chain.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="needs">
+    <div class="wrap">
+      <h2 data-i18n="needs.h2">What you need</h2>
+      <p class="section-lead" data-i18n="needs.lead">Flashing runs in the browser with Chrome or Edge. The ArduBuddy.exe connector is currently Windows-only.</p>
+      <div class="grid-2">
+        <div class="card">
+          <h3 data-i18n="needs.hw.title">Hardware</h3>
+          <ul class="plain">
+            <li data-i18n="needs.hw.li1">An ESP32 Dev / WROOM board</li>
+            <li data-i18n="needs.hw.li2">A USB cable that carries data (not charge-only)</li>
+            <li data-i18n-html="needs.hw.li3">Up to 4 AC lamps or loads, within the relay rating — <b>mains voltage, handle with care</b></li>
+            <li data-i18n="needs.hw.li4">A 2.4 GHz Wi-Fi network (no 5 GHz)</li>
+            <li data-i18n="needs.hw.li5">A certified relay module in an enclosure with a fuse, wired by a competent electrician</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3 data-i18n="needs.sw.title">Software</h3>
+          <ul class="plain">
+            <li data-i18n="needs.sw.li1">Chrome or Edge on HTTPS (Web Serial)</li>
+            <li data-i18n-html="needs.sw.li2">Windows for the <code>ArduBuddy.exe</code> connector</li>
+            <li data-i18n-html="needs.sw.li3">WorkBuddy Desktop installed and signed in — the web version cannot run MCP connectors (<a href="#start">steps</a>)</li>
+            <li data-i18n-html="needs.sw.li4">A <a href="https://workbuddy.ai/invite?code=PHSPUBC8" target="_blank" rel="noopener">WorkBuddy account</a>; the invite link gives <b>+350 free credits</b></li>
+            <li data-i18n="needs.sw.li5">Nothing else — no Python, no Arduino IDE, no drivers</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="status">
+    <div class="wrap">
+      <h2 data-i18n="status.h2">What works today, honestly</h2>
+      <p class="section-lead" data-i18n="status.lead">This is a hackathon prototype. Here is exactly where it stands.</p>
+      <table>
+        <thead><tr><th data-i18n="status.th1">Part</th><th data-i18n="status.th2">Status</th><th data-i18n="status.th3">Notes</th></tr></thead>
+        <tbody>
+          <tr><td data-i18n="status.r1n">MCP tools</td><td><span class="tag tag-ok" data-i18n="status.r1tag">Working</span></td><td data-i18n="status.r1note">5 tools: list, status, control, sensor, scene</td></tr>
+          <tr><td data-i18n="status.r2n">ESP32 commands</td><td><span class="tag tag-ok" data-i18n="status.r2tag">Verified</span></td><td data-i18n="status.r2note">Verified against the shipped firmware source</td></tr>
+          <tr><td data-i18n="status.r3n">Browser flashing</td><td><span class="tag tag-ok" data-i18n="status.r3tag">Working</span></td><td data-i18n="status.r3note">Firmware v1.0 is bundled with this site</td></tr>
+          <tr><td data-i18n="status.r4n">Connector .exe (optional)</td><td><span class="tag tag-plain" data-i18n="status.r4tag">Optional</span></td><td data-i18n="status.r4note">Only for the MCP flow; the HTTP prompt flow does not need it</td></tr>
+          <tr><td data-i18n="status.r5n">Temperature sensor</td><td><span class="tag tag-warn" data-i18n="status.r5tag">Not available</span></td><td data-i18n="status.r5note">v1.0 only has an ADC sensor, so we report volts — never invented numbers</td></tr>
+          <tr><td data-i18n="status.r6n">Device login</td><td><span class="tag tag-warn" data-i18n="status.r6tag">Not available</span></td><td data-i18n="status.r6note">v1.0 has no password on its local API. Use only on a trusted network</td></tr>
+          <tr><td data-i18n="status.r7n">4-channel AC control</td><td><span class="tag tag-ok" data-i18n="status.r7tag">Supported</span></td><td data-i18n="status.r7note">ESP32 + 4-channel relay shield switches up to four AC lamps</td></tr>
+        </tbody>
+      </table>
+      <div class="note" style="margin-top:24px">
+        <strong data-i18n="status.note-strong">Stay safe:</strong> <span data-i18n-html="status.note">start with small LEDs. Never wire an ESP32 to a wall socket, a projector, or any high-voltage device. Avoid GPIO 0, 2, 5, 12 and 15.</span>
+      </div>
+      <details class="advanced" style="margin-top:24px">
+        <summary data-i18n="status.adv.summary">For developers: exact device commands</summary>
+        <div class="body">
+          <table>
+            <thead><tr><th data-i18n="status.adv.th1">Endpoint</th><th data-i18n="status.adv.th2">Purpose</th></tr></thead>
+            <tbody>
+              <tr><td><code>GET /api/status</code></td><td data-i18n="status.adv.p1">Board status and IP</td></tr>
+              <tr><td><code>POST /api/skill/execute</code></td><td data-i18n-html="status.adv.p2">Write a GPIO pin: <code>{"tool":"gpio.write","args":{"pin":4,"value":true}}</code></td></tr>
+              <tr><td><code>POST /api/skill/chain</code></td><td data-i18n="status.adv.p3">Several switches in one request</td></tr>
+              <tr><td><code>GET /api/skills</code></td><td data-i18n="status.adv.p4">List of available skills</td></tr>
+            </tbody>
+          </table>
+          <p class="hint" style="margin:14px 0 0" data-i18n-html="status.adv.note">Full schema for each endpoint lives in the <a href="firmware/source/main.cpp" target="_blank" rel="noopener">firmware source</a> (MIT).</p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section id="downloads">
+    <div class="wrap">
+      <h2 data-i18n="dl.h2">Downloads and file check</h2>
+      <p class="section-lead" data-i18n="dl.lead">Two files, both bundled with this site. No separate download server.</p>
+      <div class="grid-2">
+        <div class="card">
+          <h3 data-i18n="dl.exe.title">ArduBuddy.exe</h3>
+          <p data-i18n-html="dl.exe.p">The connector and its setup window for Windows.<br/>SHA-256: <code style="word-break:break-all;font-size:12px">63186ad64528cdff8cdb8a1b2aa1a58b225fa5152348ddd584b6a9b095cbf120</code></p>
+          <p style="margin-top:14px"><a class="btn btn-primary btn-small" href="downloads/ArduBuddy.exe" download data-i18n="dl.btnExe">Download the connector</a></p>
+        </div>
+        <div class="card">
+          <h3 data-i18n="dl.fw.title">ArduBuddy firmware v1.0</h3>
+          <p data-i18n="dl.fw.p">Merged ESP32 image, 1,182,624 bytes, written at offset 0. This is the file the browser flasher uses.</p>
+          <p style="margin-top:14px"><a class="btn btn-ghost btn-small" href="firmware/ardubuddy-esp32-v10.bin" download data-i18n="dl.btnBin">Download .bin</a> <a class="btn btn-ghost btn-small" href="firmware/manifest.json" data-i18n="dl.btnManifest">Manifest</a></p>
+        </div>
+      </div>
+      <div class="note" style="margin-top:22px">
+        <strong data-i18n="dl.note-strong">Windows may warn:</strong> <span data-i18n-html="dl.note">the connector is not code-signed, so SmartScreen can say "Unknown publisher". Check the SHA-256 above, then choose <b>More info → Run anyway</b>.</span>
+      </div>
+      <p class="hint" style="margin-top:16px" data-i18n-html="dl.hint">Brand assets: <a href="assets/ardubuddy-logo.svg">logo SVG</a> · <a href="assets/ardubuddy-logo-light.svg">logo for dark backgrounds</a> · <a href="assets/ardubuddy-icon.svg">icon SVG</a> · <a href="assets/ardubuddy-icon-512.png">icon PNG 512</a> · <a href="favicon.ico">favicon ICO</a></p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2 data-i18n="ready.h2">Ready to try?</h2>
+      <p class="section-lead" data-i18n="ready.lead">Flash first, then connect to Wi-Fi. That order makes problems easy to spot.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="flash.html" data-i18n="ready.btn1">Open the 3-step setup</a>
+        <a class="btn btn-ghost" href="firmware/source/main.cpp" target="_blank" rel="noopener" data-i18n="ready.btn2">Firmware source</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div data-i18n="footer.copy">ArduBuddy · hackathon prototype by Ajang Rahmat / ArduMeka · MIT</div>
+    <div class="links">
+      <a href="index.html" data-i18n="nav.home">Home</a>
+      <a href="index.html#start" data-i18n="nav.before">Before you start</a>
+      <a href="index.html#downloads" data-i18n="nav.downloads">Downloads</a>
+      <a href="index.html#why" data-i18n="nav.why">Why we built it</a>
+      <a href="index.html#workbuddy" data-i18n="nav.whatwb">What is WorkBuddy?</a>
+      <a href="https://www.workbuddy.ai/" target="_blank" rel="noopener" data-i18n="nav.workbuddy">WorkBuddy</a>
+      <a href="https://workbuddy.ai/invite?code=PHSPUBC8" target="_blank" rel="noopener" data-i18n="nav.createAccount">Create account</a>
+      <a href="firmware/source/main.cpp" target="_blank" rel="noopener" data-i18n="nav.source">Firmware source</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

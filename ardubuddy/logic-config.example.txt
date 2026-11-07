@@ -1,0 +1,52 @@
+# Pemetaan logis ArduBuddy (firmware v1.0).
+# Kontrak HTTP: lihat docs/FIRMWARE-AND-FLASH.md
+#
+# Nama logis ini yang dipakai prompt WorkBuddy. Nilai di bawah default; sesuaikan dengan wiring.
+# Nilai di bawah adalah default; SESUAIKAN dengan wiring fisik sebelum demo.
+
+device_id: office-main
+transport: http
+base_url: http://192.168.1.50
+firmware: ardubuddy-esp32-v10.bin
+
+devices:
+  meeting_light:
+    type: output
+    pin: 5
+    skill: gpio.write
+    safe_states: [on, off]
+
+  projector_indicator:
+    type: output
+    pin: 16
+    skill: gpio.write
+    safe_states: [on, off]
+
+  room_fan:
+    type: output
+    pin: 17
+    skill: gpio.write
+    safe_states: [on, off]
+
+  desk_lamp:
+    type: output
+    pin: 4
+    skill: gpio.write
+    safe_states: [on, off]
+
+sensors:
+  room_light_adc:
+    type: adc
+    pin: 34
+    skill: adc.read
+    unit: V
+
+# Hindari GPIO strapping: 0, 2, 12, 15. GPIO 5 juga strapping dan dipakai di peta
+# default ini, jadi relay bisa berkedip sesaat saat board boot. Kalau mengganggu,
+# pindahkan ke pin lain lewat halaman setup (langkah 3).
+# ADC2 (25-27) tidak bisa dipakai saat WiFi aktif; pakai GPIO 32-39.
+# Sensor suhu/kelembapan BELUM tersedia di firmware v1.0.
+
+scenes:
+  meeting: [meeting_light:on, projector_indicator:on, room_fan:on, desk_lamp:on]
+  eco:     [meeting_light:off, projector_indicator:off, room_fan:off, desk_lamp:off]

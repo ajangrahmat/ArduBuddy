@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 288 64" role="img" aria-labelledby="ardubuddyLogoTitle">
+  <title id="ardubuddyLogoTitle">ArduBuddy — Office Agent</title>
+  <defs>
+    <clipPath id="abTile"><rect x="2" y="2" width="60" height="60" rx="16" /></clipPath>
+  </defs>
+  <g clip-path="url(#abTile)">
+    <rect x="2" y="2" width="60" height="60" rx="16" fill="#0B8F6F" />
+  </g>
+  <rect x="12" y="13" width="40" height="31" rx="9" fill="#FFFFFF" />
+  <path d="M20 39 L20 51 L31 41 Z" fill="#FFFFFF" />
+  <rect x="19" y="21" width="26" height="16" rx="4" fill="#14243A" />
+  <g fill="#9FC0D4">
+    <rect x="16.2" y="24" width="2.6" height="2.6" rx="1" />
+    <rect x="16.2" y="31" width="2.6" height="2.6" rx="1" />
+    <rect x="45.2" y="24" width="2.6" height="2.6" rx="1" />
+    <rect x="45.2" y="31" width="2.6" height="2.6" rx="1" />
+  </g>
+  <circle cx="25" cy="29" r="2.6" fill="#6EE0B7" />
+  <circle cx="32" cy="29" r="2.6" fill="#6EE0B7" />
+  <circle cx="39" cy="29" r="2.6" fill="#3D647D" />
+  <text x="76" y="34" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="26" font-weight="800" letter-spacing="-1" fill="#14243A">ArduBuddy</text>
+  <text x="77" y="51" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="10.5" font-weight="700" letter-spacing="2.2" fill="#0B8F6F">OFFICE AGENT</text>
+</svg>
