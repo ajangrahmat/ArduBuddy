@@ -39,8 +39,8 @@ Prototipe memakai shield relay 4 channel untuk mengendalikan lampu AC; sisi AC m
 5. WorkBuddy melaporkan hasil aktual.
 
 ## Links
-- Website: https://avisha.id/ardubuddy/ (isi setelah deploy)
-- Repository: [isi setelah tersedia]
+- Website: https://avisha.id/ardubuddy/
+- Repository: https://github.com/ajangrahmat/ArduBuddy
 - Demo video: [isi setelah tersedia]
 - Firmware ArduBuddy: firmware/ardubuddy
 - ArduBuddy: https://avisha.id/ardubuddy/index.html

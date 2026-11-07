@@ -6,6 +6,9 @@ Integrasi **Tencent Cloud WorkBuddy + HTTP API + ArduBuddy firmware (ESP32)** un
 **Challenge:** B — The Office Agent  
 **Status:** MVP berjalan — firmware siap flash, setup relay + prompt di web, dan website landing
 
+**Repo:** <https://github.com/ajangrahmat/ArduBuddy>  
+**Website:** <https://avisha.id/ardubuddy/>
+
 > **Firmware:** **ArduBuddy firmware v1.0** adalah implementasi minimal di repo ini (`firmware/ardubuddy/`, PlatformIO, MIT). Tidak ada runtime LLM/agent — board hanya menerima perintah JSON dari WorkBuddy lewat HTTP (tanpa MCP).
 
 Tiga hal yang bisa langsung dibagikan ke orang lain:

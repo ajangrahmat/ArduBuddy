@@ -409,7 +409,8 @@ pengujian dengan ESP32 fisik, perekaman video, repo publik, dan pengisian form.
 ## 21. Referensi
 - ArduBuddy: https://avisha.id/ardubuddy/index.html
 - Source firmware ArduBuddy: firmware/ardubuddy
-- Website proyek (rencana): https://avisha.id/ardubuddy/
+- Website proyek: https://avisha.id/ardubuddy/
+- Repository: https://github.com/ajangrahmat/ArduBuddy
 - Tencent Cloud Hackathon: https://tch.tencentcloud.com/contest/47
 - MCP Specification: https://modelcontextprotocol.io/
 - FastMCP: https://github.com/jlowin/fastmcp
